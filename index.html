@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcify</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="calculator-card">
+            <div class="top-bar">
+                <div class="brand">Calcify</div>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('calculator')">Calculator</button>
+                    <button class="tab-btn" onclick="showTab('converter')">Converter</button>
+                    <button class="tab-btn icon-btn" onclick="showTab('history')" title="History">🕘</button>
+                </div>
+            </div>
+
+            <div id="calculatorTab" class="tab-content active-tab">
+                <div class="display">
+                    <div id="expression">0</div>
+                    <div id="result">0</div>
+                </div>
+                <div class="buttons">
+                    <button class="gray" onclick="clearDisplay()">AC</button>
+                    <button class="gray" onclick="deleteLast()">DEL</button>
+                    <button class="gray" onclick="appendValue('%')">%</button>
+                    <button class="operator" onclick="appendValue('/')">÷</button>
+                    
+                    <button onclick="appendValue('7')">7</button>
+                    <button onclick="appendValue('8')">8</button>
+                    <button onclick="appendValue('9')">9</button>
+                    <button class="operator" onclick="appendValue('*')">×</button>
+                    
+                    <button onclick="appendValue('4')">4</button>
+                    <button onclick="appendValue('5')">5</button>
+                    <button onclick="appendValue('6')">6</button>
+                    <button class="operator" onclick="appendValue('-')">−</button>
+                    
+                    <button onclick="appendValue('1')">1</button>
+                    <button onclick="appendValue('2')">2</button>
+                    <button onclick="appendValue('3')">3</button>
+                    <button class="operator" onclick="appendValue('+')">+</button>
+                    
+                    <button onclick="appendValue('0')">0</button>
+                    <button onclick="appendValue('.')">.</button>
+                    <button class="gray" onclick="appendValue('(')">(</button>
+                    <button class="equal" onclick="calculate()">=</button>
+                </div>
+            </div>
+
+            <div id="converterTab" class="tab-content">
+                <div class="converter-main">
+                    <div class="converter-grid">
+                        <div class="converter-item" onclick="openConverter('currency')">
+                            <div class="icon">💱</div>
+                            <p>Currency</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('length')">
+                            <div class="icon">📏</div>
+                            <p>Length</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('mass')">
+                            <div class="icon">⚖️</div>
+                            <p>Mass</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('area')">
+                            <div class="icon">⬛</div>
+                            <p>Area</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('time')">
+                            <div class="icon">⏰</div>
+                            <p>Time</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('data')">
+                            <div class="icon">💾</div>
+                            <p>Data</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('discount')">
+                            <div class="icon">🏷️</div>
+                            <p>Discount</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('volume')">
+                            <div class="icon">📦</div>
+                            <p>Volume</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('numeral')">
+                            <div class="icon">🔁</div>
+                            <p>Numeral</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('speed')">
+                            <div class="icon">🚀</div>
+                            <p>Speed</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('temperature')">
+                            <div class="icon">🌡️</div>
+                            <p>Temperature</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('bmi')">
+                            <div class="icon">⚕️</div>
+                            <p>BMI</p>
+                        </div>
+                        <div class="converter-item" onclick="openConverter('gst')">
+                            <div class="icon">🧾</div>
+                            <p>GST</p>
+                        </div>
+                    </div>
+
+                    <div class="converter-workspace">
+                        <h3 id="converterTitle">Select Converter</h3>
+                        <input type="number" id="inputValue" placeholder="Enter value">
+                        <select id="fromUnit"></select>
+                        <select id="toUnit"></select>
+                        <button class="convert-main-btn" onclick="convertNow()">Convert</button>
+                        <h2 id="convertResult">Result: </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div id="historyTab" class="tab-content">
+                <div class="history-box full-box">
+                    <h2>Calculation History</h2>
+                    <ul id="historyList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
