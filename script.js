@@ -7,11 +7,16 @@ const result = document.getElementById('result');
 const historyList = document.getElementById('historyList');
 
 const inputValue = document.getElementById('inputValue');
+
 const fromUnit = document.getElementById('fromUnit');
 const toUnit = document.getElementById('toUnit');
 
 const converterTitle = document.getElementById('converterTitle');
 const convertResult = document.getElementById('convertResult');
+const discountSection = document.getElementById('discountSection');
+
+const originalPrice = document.getElementById('originalPrice');
+const discountPercent = document.getElementById('discountPercent');
 
 const birthYear = document.getElementById('birthYear');
 const birthMonth = document.getElementById('birthMonth');
@@ -26,6 +31,18 @@ let currentConverter = '';
 
 
 // ==========================
+// ALLOW ONLY NUMBERS
+// ==========================
+
+inputValue?.addEventListener('input', () => {
+
+    inputValue.value = inputValue.value
+        .replace(/[^0-9.]/g, '')
+        .replace(/(\..*?)\..*/g, '$1');
+});
+
+
+// ==========================
 // WORLD CURRENCIES
 // ==========================
 
@@ -36,23 +53,7 @@ const WORLD_CURRENCIES = {
     INR: { name: 'Indian Rupee', symbol: '₹', rate: 83.5 },
     JPY: { name: 'Japanese Yen', symbol: '¥', rate: 150 },
     AUD: { name: 'Australian Dollar', symbol: 'A$', rate: 1.52 },
-    CAD: { name: 'Canadian Dollar', symbol: 'C$', rate: 1.38 },
-    CHF: { name: 'Swiss Franc', symbol: 'CHF', rate: 0.88 },
-    CNY: { name: 'Chinese Yuan', symbol: '¥', rate: 7.2 },
-    SGD: { name: 'Singapore Dollar', symbol: 'S$', rate: 1.35 },
-    HKD: { name: 'Hong Kong Dollar', symbol: 'HK$', rate: 7.8 },
-    KRW: { name: 'South Korean Won', symbol: '₩', rate: 1350 },
-    SEK: { name: 'Swedish Krona', symbol: 'kr', rate: 10.5 },
-    NOK: { name: 'Norwegian Krone', symbol: 'kr', rate: 10.8 },
-    NZD: { name: 'New Zealand Dollar', symbol: 'NZ$', rate: 1.65 },
-    MXN: { name: 'Mexican Peso', symbol: '$', rate: 20 },
-    BRL: { name: 'Brazilian Real', symbol: 'R$', rate: 5.6 },
-    RUB: { name: 'Russian Ruble', symbol: '₽', rate: 95 },
-    ZAR: { name: 'South African Rand', symbol: 'R', rate: 18.5 },
-    TRY: { name: 'Turkish Lira', symbol: '₺', rate: 34 },
-    AED: { name: 'UAE Dirham', symbol: 'د.إ', rate: 3.67 },
-    SAR: { name: 'Saudi Riyal', symbol: 'ر.س', rate: 3.75 },
-    PKR: { name: 'Pakistani Rupee', symbol: '₨', rate: 278 }
+    CAD: { name: 'Canadian Dollar', symbol: 'C$', rate: 1.38 }
 };
 
 
@@ -146,7 +147,6 @@ function appendValue(value) {
     const operators = ['+', '-', '*', '/', '%'];
     const lastChar = currentInput.slice(-1);
 
-    // Prevent multiple operators
     if (operators.includes(value)) {
 
         if (currentInput === '') return;
@@ -260,20 +260,6 @@ function showConverterGrid() {
 
 
 // ==========================
-// CLEAN SELECT TEXT
-// ==========================
-
-function getCleanUnitName(value) {
-
-    if (WORLD_CURRENCIES[value]) {
-        return value;
-    }
-
-    return value;
-}
-
-
-// ==========================
 // OPEN CONVERTER
 // ==========================
 
@@ -291,9 +277,22 @@ function openSpecificConverter(type) {
     toUnit.innerHTML = '';
 
     inputValue.value = '';
+    originalPrice.value = '';
+discountPercent.value = '';
+inputValue.parentElement.style.display = 'flex';
+
+    convertResult.innerText = 'Result:';
 
     document.getElementById('ageSection').style.display = 'none';
-    document.getElementById('inputContainer').style.display = 'grid';
+document.getElementById('inputContainer').style.display = 'flex';
+
+discountSection.style.display = 'none';
+
+fromUnit.parentElement.style.display = 'flex';
+toUnit.parentElement.style.display = 'flex';
+document.querySelector('.arrow-center').style.display = 'flex';
+
+    // AGE
 
     if (type === 'age') {
 
@@ -330,22 +329,22 @@ function openSpecificConverter(type) {
             fromUnit.value = 'USD';
             toUnit.value = 'INR';
 
-            break;
+            return;
 
         case 'length':
-            options = ['Meter', 'Kilometer', 'Centimeter', 'Millimeter', 'Inch', 'Foot', 'Yard'];
+            options = ['Meter', 'Kilometer', 'Centimeter', 'Millimeter', 'Inch', 'Foot'];
             break;
 
         case 'mass':
-            options = ['Gram', 'Kilogram', 'Pound', 'Ounce', 'Ton'];
+            options = ['Gram', 'Kilogram', 'Pound', 'Ounce'];
             break;
 
         case 'area':
-            options = ['Square Meter', 'Square Kilometer', 'Hectare', 'Acre', 'Square Foot'];
+            options = ['Square Meter', 'Square Kilometer', 'Acre'];
             break;
 
         case 'volume':
-            options = ['Liter', 'Milliliter', 'Gallon(US)', 'Pint', 'Cubic Meter'];
+            options = ['Liter', 'Milliliter', 'Gallon'];
             break;
 
         case 'temperature':
@@ -353,16 +352,34 @@ function openSpecificConverter(type) {
             break;
 
         case 'speed':
-            options = ['Km/h', 'Mph', 'm/s', 'Knot'];
+            options = ['Km/h', 'Mph', 'm/s'];
             break;
 
         case 'time':
-            options = ['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks'];
+            options = ['Seconds', 'Minutes', 'Hours', 'Days'];
             break;
 
         case 'data':
-            options = ['Byte', 'KB', 'MB', 'GB', 'TB'];
+            options = ['Byte', 'KB', 'MB', 'GB'];
             break;
+
+        case 'numeral':
+            options = ['Decimal', 'Binary'];
+            break;
+
+        case 'discount':
+
+    converterTitle.innerText = 'Discount Calculator';
+
+    discountSection.style.display = 'flex';
+
+    inputValue.parentElement.style.display = 'none';
+
+    fromUnit.parentElement.style.display = 'none';
+    toUnit.parentElement.style.display = 'none';
+    document.querySelector('.arrow-center').style.display = 'none';
+
+    return;
     }
 
     options.forEach(option => {
@@ -371,7 +388,7 @@ function openSpecificConverter(type) {
         toUnit.add(new Option(option, option));
     });
 
-    if (options.length > 0) {
+    if (options.length > 1) {
 
         fromUnit.selectedIndex = 0;
         toUnit.selectedIndex = 1;
@@ -395,14 +412,6 @@ function convertNow() {
         const toDate =
             getSelectedDate(toYear, toMonth, toDay);
 
-        if (birthDate >= toDate) {
-
-            convertResult.innerText =
-                'Birth date must be before To date';
-
-            return;
-        }
-
         let age =
             toDate.getFullYear() -
             birthDate.getFullYear();
@@ -419,11 +428,7 @@ function convertNow() {
 
             months--;
 
-            days += new Date(
-                toDate.getFullYear(),
-                toDate.getMonth(),
-                0
-            ).getDate();
+            days += 30;
         }
 
         if (months < 0) {
@@ -438,22 +443,46 @@ function convertNow() {
         return;
     }
 
+    // DISCOUNT
+
+if (currentConverter === 'discount') {
+
+    const original = parseFloat(originalPrice.value);
+    const discount = parseFloat(discountPercent.value);
+
+    if (isNaN(original) || isNaN(discount)) {
+
+        convertResult.innerText = 'Enter valid values';
+        return;
+    }
+
+    const savedAmount = (original * discount) / 100;
+
+    const finalPrice = original - savedAmount;
+
+    convertResult.innerHTML =
+        `
+        Final Price: ₹${finalPrice.toFixed(2)}
+        <br>
+        <span style="font-size:16px;color:#ffffff;">
+            You Save ₹${savedAmount.toFixed(2)}
+        </span>
+        `;
+
+    return;
+}
+
     const value = parseFloat(inputValue.value);
 
     if (isNaN(value)) {
 
-        convertResult.innerText =
-            'Enter valid number';
-
+        convertResult.innerText = 'Enter valid number';
         return;
     }
 
     let resultValue = 0;
 
-
-    // ==========================
     // CURRENCY
-    // ==========================
 
     if (currentConverter === 'currency') {
 
@@ -466,28 +495,22 @@ function convertNow() {
         resultValue = (value / fromRate) * toRate;
 
         convertResult.innerText =
-            `${WORLD_CURRENCIES[fromUnit.value].symbol}${value.toLocaleString()} = ${WORLD_CURRENCIES[toUnit.value].symbol}${resultValue.toLocaleString(undefined, {
-                maximumFractionDigits: 2
-            })}`;
+            `${WORLD_CURRENCIES[fromUnit.value].symbol}${value} = ${WORLD_CURRENCIES[toUnit.value].symbol}${resultValue.toFixed(2)}`;
 
         return;
     }
 
-
-    // ==========================
     // LENGTH
-    // ==========================
 
     if (currentConverter === 'length') {
 
         const factors = {
             Meter: 1,
-            Kilometer: 0.001,
-            Centimeter: 100,
-            Millimeter: 1000,
-            Inch: 39.3701,
-            Foot: 3.28084,
-            Yard: 1.09361
+            Kilometer: 1000,
+            Centimeter: 0.01,
+            Millimeter: 0.001,
+            Inch: 0.0254,
+            Foot: 0.3048
         };
 
         resultValue =
@@ -496,19 +519,15 @@ function convertNow() {
             factors[toUnit.value];
     }
 
-
-    // ==========================
     // MASS
-    // ==========================
 
     if (currentConverter === 'mass') {
 
         const factors = {
             Gram: 1,
-            Kilogram: 0.001,
-            Pound: 0.00220462,
-            Ounce: 0.035274,
-            Ton: 0.000001
+            Kilogram: 1000,
+            Pound: 453.592,
+            Ounce: 28.3495
         };
 
         resultValue =
@@ -517,19 +536,14 @@ function convertNow() {
             factors[toUnit.value];
     }
 
-
-    // ==========================
     // AREA
-    // ==========================
 
     if (currentConverter === 'area') {
 
         const factors = {
             'Square Meter': 1,
-            'Square Kilometer': 0.000001,
-            Hectare: 0.0001,
-            Acre: 0.000247105,
-            'Square Foot': 10.7639
+            'Square Kilometer': 1000000,
+            Acre: 4046.86
         };
 
         resultValue =
@@ -538,19 +552,14 @@ function convertNow() {
             factors[toUnit.value];
     }
 
-
-    // ==========================
     // VOLUME
-    // ==========================
 
     if (currentConverter === 'volume') {
 
         const factors = {
             Liter: 1,
-            Milliliter: 1000,
-            'Gallon(US)': 0.264172,
-            Pint: 2.11338,
-            'Cubic Meter': 0.001
+            Milliliter: 0.001,
+            Gallon: 3.78541
         };
 
         resultValue =
@@ -559,31 +568,115 @@ function convertNow() {
             factors[toUnit.value];
     }
 
-
-    // ==========================
     // TEMPERATURE
-    // ==========================
 
     if (currentConverter === 'temperature') {
 
-        const from = fromUnit.value;
-        const to = toUnit.value;
+        if (fromUnit.value === 'Celsius' &&
+            toUnit.value === 'Fahrenheit') {
 
-        if (from === 'Celsius' && to === 'Fahrenheit') {
             resultValue = (value * 9 / 5) + 32;
         }
-        else if (from === 'Fahrenheit' && to === 'Celsius') {
+
+        else if (fromUnit.value === 'Fahrenheit' &&
+            toUnit.value === 'Celsius') {
+
             resultValue = (value - 32) * 5 / 9;
         }
-        else if (from === 'Celsius' && to === 'Kelvin') {
+
+        else if (fromUnit.value === 'Celsius' &&
+            toUnit.value === 'Kelvin') {
+
             resultValue = value + 273.15;
         }
-        else if (from === 'Kelvin' && to === 'Celsius') {
+
+        else if (fromUnit.value === 'Kelvin' &&
+            toUnit.value === 'Celsius') {
+
             resultValue = value - 273.15;
         }
+
         else {
+
             resultValue = value;
         }
+    }
+
+    // SPEED
+
+    if (currentConverter === 'speed') {
+
+        const factors = {
+            'Km/h': 1,
+            'Mph': 1.60934,
+            'm/s': 3.6
+        };
+
+        resultValue =
+            value *
+            factors[fromUnit.value] /
+            factors[toUnit.value];
+    }
+
+    // TIME
+
+    if (currentConverter === 'time') {
+
+        const factors = {
+            Seconds: 1,
+            Minutes: 60,
+            Hours: 3600,
+            Days: 86400
+        };
+
+        resultValue =
+            value *
+            factors[fromUnit.value] /
+            factors[toUnit.value];
+    }
+
+    // DATA
+
+    if (currentConverter === 'data') {
+
+        const factors = {
+            Byte: 1,
+            KB: 1024,
+            MB: 1048576,
+            GB: 1073741824
+        };
+
+        resultValue =
+            value *
+            factors[fromUnit.value] /
+            factors[toUnit.value];
+    }
+
+    // NUMERAL
+
+    if (currentConverter === 'numeral') {
+
+        if (fromUnit.value === 'Decimal' &&
+            toUnit.value === 'Binary') {
+
+            resultValue = parseInt(value).toString(2);
+        }
+
+        else if (fromUnit.value === 'Binary' &&
+            toUnit.value === 'Decimal') {
+
+            resultValue = parseInt(value, 2);
+        }
+
+        else {
+
+            resultValue = value;
+        }
+
+        convertResult.innerText =
+            `Result: ${resultValue}`;
+
+        return;
     }
 
     convertResult.innerText =
@@ -598,3 +691,9 @@ function convertNow() {
 // ==========================
 
 showTab('calculator');
+
+birthYear?.addEventListener('change', updateBirthDayOptions);
+birthMonth?.addEventListener('change', updateBirthDayOptions);
+
+toYear?.addEventListener('change', updateToDayOptions);
+toMonth?.addEventListener('change', updateToDayOptions);
