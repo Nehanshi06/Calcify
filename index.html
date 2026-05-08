@@ -45,76 +45,139 @@
                     <button onclick="appendValue('3')">3</button>
                     <button class="operator" onclick="appendValue('+')">+</button>
                     
-                    <button onclick="appendValue('0')">0</button>
+                    <button class="zero-btn" onclick="appendValue('0')">0</button>
                     <button onclick="appendValue('.')">.</button>
-                    <button class="gray" onclick="appendValue('(')">(</button>
                     <button class="equal" onclick="calculate()">=</button>
                 </div>
             </div>
 
-            <div id="converterTab" class="tab-content">
+            <!-- Converter Grid Tab -->
+            <div id="converterGridTab" class="tab-content">
                 <div class="converter-main">
-                    <div class="converter-grid">
-                        <div class="converter-item" onclick="openConverter('currency')">
+                    <div class="converter-grid full-grid">
+                        <div class="converter-item" onclick="openSpecificConverter('currency')">
                             <div class="icon">💱</div>
                             <p>Currency</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('length')">
+                        <div class="converter-item" onclick="openSpecificConverter('length')">
                             <div class="icon">📏</div>
                             <p>Length</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('mass')">
+                        <div class="converter-item" onclick="openSpecificConverter('age')">
+                            <div class="icon">🎂</div>
+                            <p>Age</p>
+                        </div>
+                        <div class="converter-item" onclick="openSpecificConverter('mass')">
                             <div class="icon">⚖️</div>
                             <p>Mass</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('area')">
+                        <div class="converter-item" onclick="openSpecificConverter('area')">
                             <div class="icon">⬛</div>
                             <p>Area</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('time')">
+                        <div class="converter-item" onclick="openSpecificConverter('time')">
                             <div class="icon">⏰</div>
                             <p>Time</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('data')">
+                        <div class="converter-item" onclick="openSpecificConverter('data')">
                             <div class="icon">💾</div>
                             <p>Data</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('discount')">
+                        <div class="converter-item" onclick="openSpecificConverter('discount')">
                             <div class="icon">🏷️</div>
                             <p>Discount</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('volume')">
+                        <div class="converter-item" onclick="openSpecificConverter('volume')">
                             <div class="icon">📦</div>
                             <p>Volume</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('numeral')">
+                        <div class="converter-item" onclick="openSpecificConverter('numeral')">
                             <div class="icon">🔁</div>
                             <p>Numeral</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('speed')">
+                        <div class="converter-item" onclick="openSpecificConverter('speed')">
                             <div class="icon">🚀</div>
                             <p>Speed</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('temperature')">
+                        <div class="converter-item" onclick="openSpecificConverter('temperature')">
                             <div class="icon">🌡️</div>
                             <p>Temperature</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('bmi')">
+                        <div class="converter-item" onclick="openSpecificConverter('bmi')">
                             <div class="icon">⚕️</div>
                             <p>BMI</p>
                         </div>
-                        <div class="converter-item" onclick="openConverter('gst')">
+                        <div class="converter-item" onclick="openSpecificConverter('gst')">
                             <div class="icon">🧾</div>
                             <p>GST</p>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="converter-workspace">
+            <!-- PERFECT Converter Workspace -->
+            <div id="converterWorkspaceTab" class="tab-content">
+                <div class="converter-workspace-full">
+                    <div class="workspace-header">
+                        <button class="back-btn" onclick="showConverterGrid()">← Back</button>
                         <h3 id="converterTitle">Select Converter</h3>
-                        <input type="number" id="inputValue" placeholder="Enter value">
-                        <select id="fromUnit"></select>
-                        <select id="toUnit"></select>
-                        <button class="convert-main-btn" onclick="convertNow()">Convert</button>
+                    </div>
+                    
+                    <!-- Universal Input Layout -->
+                    <div id="inputContainer">
+
+    <!-- INPUT -->
+    <div class="input-group full-width">
+        <label id="inputLabel">Enter Value</label>
+        <input type="text" id="inputValue" placeholder="Type value here">
+    </div>
+
+    <!-- FROM -->
+    <div class="convert-box">
+        <label>FROM</label>
+        <select id="fromUnit"></select>
+    </div>
+
+    <!-- CENTER ARROW -->
+    <div class="arrow-center">
+        <div class="big-arrow">→</div>
+        <div class="conversion-text">
+            <span id="fromDisplay">FROM</span>
+            <span>to</span>
+            <span id="toDisplay">TO</span>
+        </div>
+    </div>
+
+    <!-- TO -->
+    <div class="convert-box">
+        <label>TO</label>
+        <select id="toUnit"></select>
+    </div>
+
+</div>
+                    
+                    <!-- Age Converter (Untouched) -->
+                    <div id="ageSection" style="display: none;">
+                        <div class="date-input-group">
+                            <label>Birth Date</label>
+                            <div class="date-selector-row">
+                                <select id="birthYear" class="date-dropdown"></select>
+                                <select id="birthMonth" class="date-dropdown"></select>
+                                <select id="birthDay" class="date-dropdown"></select>
+                            </div>
+                        </div>
+                        <div class="date-input-group">
+                            <label>To Date <span class="auto-today">(Auto: Today)</span></label>
+                            <div class="date-selector-row">
+                                <select id="toYear" class="date-dropdown"></select>
+                                <select id="toMonth" class="date-dropdown"></select>
+                                <select id="toDay" class="date-dropdown"></select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="convert-main-btn" onclick="convertNow()">Convert</button>
+                    <div class="result-container">
                         <h2 id="convertResult">Result: </h2>
                     </div>
                 </div>
