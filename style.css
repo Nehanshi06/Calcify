@@ -50,6 +50,8 @@ body{
 .tabs{
     display:flex;
     gap:8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
 }
 
 .tab-btn{
@@ -60,6 +62,7 @@ body{
     border-radius:16px;
     cursor:pointer;
     transition:0.25s;
+    font-size:14px;
 }
 
 .tab-btn:hover,
@@ -82,7 +85,7 @@ body{
 /* DISPLAY */
 
 .display{
-    height:120px;
+    min-height:120px;
     background:#121a33;
     border-radius:24px;
     padding:20px;
@@ -91,16 +94,21 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:flex-end;
+    overflow:hidden;
 }
 
 #expression{
     font-size:22px;
     color:#8aa4ff;
+    word-break:break-all;
+    text-align:right;
 }
 
 #result{
     font-size:38px;
     font-weight:700;
+    word-break:break-all;
+    text-align:right;
 }
 
 /* BUTTONS */
@@ -148,6 +156,7 @@ body{
 .converter-main{
     height:520px;
     overflow-y:auto;
+    padding-right:4px;
 }
 
 .converter-grid{
@@ -183,6 +192,7 @@ body{
 .converter-item p{
     font-size:13px;
     color:#dce6ff;
+    word-break:break-word;
 }
 
 /* WORKSPACE */
@@ -200,6 +210,11 @@ body{
     margin-bottom:20px;
 }
 
+.workspace-header h3{
+    font-size:20px;
+    word-break:break-word;
+}
+
 .back-btn{
     border:none;
     background:rgba(255,255,255,0.1);
@@ -207,6 +222,7 @@ body{
     padding:10px 14px;
     border-radius:12px;
     cursor:pointer;
+    flex-shrink:0;
 }
 
 /* INPUT */
@@ -268,6 +284,12 @@ body{
     gap:18px;
 }
 
+.date-input-group{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
 .date-selector-row{
     display:flex;
     gap:8px;
@@ -281,6 +303,7 @@ body{
     background:#0f1835;
     color:white;
     padding:0 10px;
+    width:100%;
 }
 
 .auto-today{
@@ -311,6 +334,7 @@ body{
     color:#00eaff;
     font-size:24px;
     word-break:break-word;
+    line-height:1.5;
 }
 
 /* HISTORY */
@@ -320,6 +344,11 @@ body{
     background:#0d1326;
     border-radius:24px;
     padding:20px;
+    overflow-y:auto;
+}
+
+.history-box h2{
+    font-size:22px;
 }
 
 #historyList{
@@ -332,45 +361,7 @@ body{
     padding:14px;
     border-radius:14px;
     margin-bottom:10px;
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-    body{
-        padding:18px;
-    }
-
-    .calculator-card{
-        padding:18px;
-    }
-
-    .converter-grid{
-        grid-template-columns:repeat(3,1fr);
-        gap:10px;
-    }
-
-    .converter-item{
-        min-height:90px;
-        padding:14px 8px;
-    }
-
-    .converter-item p{
-        font-size:11px;
-    }
-
-    .icon{
-        font-size:22px;
-    }
-
-    .date-selector-row{
-        flex-direction:column;
-    }
-
-    .big-arrow{
-        transform:rotate(90deg);
-    }
+    word-break:break-word;
 }
 
 /* DISCOUNT */
@@ -391,4 +382,167 @@ body{
     color:white;
     padding:12px 16px;
     font-size:15px;
+}
+
+/* TABLET */
+
+@media(max-width:768px){
+
+    body{
+        padding:20px;
+        align-items:flex-start;
+    }
+
+    .calculator-card{
+        border-radius:26px;
+    }
+
+    .top-bar{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .tabs{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .tab-btn{
+        flex:1;
+        text-align:center;
+    }
+
+    .icon-btn{
+        flex:0.5;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    body{
+        padding:14px;
+    }
+
+    .main-container{
+        max-width:100%;
+    }
+
+    .calculator-card{
+        padding:16px;
+        border-radius:22px;
+    }
+
+    .brand{
+        font-size:22px;
+    }
+
+    .display{
+        padding:16px;
+        min-height:110px;
+    }
+
+    #expression{
+        font-size:18px;
+    }
+
+    #result{
+        font-size:30px;
+    }
+
+    .buttons{
+        gap:10px;
+    }
+
+    .buttons button{
+        height:58px;
+        font-size:20px;
+        border-radius:16px;
+    }
+
+    .converter-grid{
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+    }
+
+    .converter-item{
+        min-height:88px;
+        padding:12px 6px;
+        border-radius:16px;
+    }
+
+    .converter-item p{
+        font-size:11px;
+    }
+
+    .icon{
+        font-size:22px;
+    }
+
+    .converter-workspace-full{
+        padding:16px;
+    }
+
+    .workspace-header h3{
+        font-size:18px;
+    }
+
+    #inputValue,
+    #fromUnit,
+    #toUnit,
+    .date-dropdown,
+    #discountSection input{
+        min-height:54px;
+        font-size:14px;
+    }
+
+    .convert-main-btn{
+        height:54px;
+        font-size:15px;
+    }
+
+    #convertResult{
+        font-size:20px;
+    }
+
+    .date-selector-row{
+        flex-direction:column;
+    }
+
+    .big-arrow{
+        transform:rotate(90deg);
+    }
+
+    .history-box{
+        height:auto;
+        min-height:400px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+
+@media(max-width:380px){
+
+    .buttons button{
+        height:52px;
+        font-size:18px;
+    }
+
+    .tab-btn{
+        padding:10px 12px;
+        font-size:12px;
+    }
+
+    .converter-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .brand{
+        font-size:20px;
+    }
+
+    #result{
+        font-size:26px;
+    }
 }
