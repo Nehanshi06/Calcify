@@ -49,11 +49,29 @@ inputValue?.addEventListener('input', () => {
 const WORLD_CURRENCIES = {
     USD: { name: 'US Dollar', symbol: '$', rate: 1 },
     EUR: { name: 'Euro', symbol: '€', rate: 0.92 },
-    GBP: { name: 'British Pound', symbol: '£', rate: 0.79 },
     INR: { name: 'Indian Rupee', symbol: '₹', rate: 83.5 },
+    GBP: { name: 'British Pound', symbol: '£', rate: 0.79 },
     JPY: { name: 'Japanese Yen', symbol: '¥', rate: 150 },
+
+    CNY: { name: 'Chinese Yuan', symbol: '¥', rate: 7.2 },
     AUD: { name: 'Australian Dollar', symbol: 'A$', rate: 1.52 },
-    CAD: { name: 'Canadian Dollar', symbol: 'C$', rate: 1.38 }
+    CAD: { name: 'Canadian Dollar', symbol: 'C$', rate: 1.38 },
+    CHF: { name: 'Swiss Franc', symbol: 'CHF', rate: 0.90 },
+    SGD: { name: 'Singapore Dollar', symbol: 'S$', rate: 1.35 },
+
+    AED: { name: 'UAE Dirham', symbol: 'د.إ', rate: 3.67 },
+    SAR: { name: 'Saudi Riyal', symbol: '﷼', rate: 3.75 },
+    KWD: { name: 'Kuwaiti Dinar', symbol: 'KD', rate: 0.31 },
+    QAR: { name: 'Qatari Riyal', symbol: 'QR', rate: 3.64 },
+
+    PKR: { name: 'Pakistani Rupee', symbol: '₨', rate: 278 },
+    BDT: { name: 'Bangladeshi Taka', symbol: '৳', rate: 117 },
+
+    KRW: { name: 'South Korean Won', symbol: '₩', rate: 1370 },
+    THB: { name: 'Thai Baht', symbol: '฿', rate: 36 },
+    MYR: { name: 'Malaysian Ringgit', symbol: 'RM', rate: 4.7 },
+
+    ZAR: { name: 'South African Rand', symbol: 'R', rate: 18.2 }
 };
 
 
@@ -278,27 +296,28 @@ function openSpecificConverter(type) {
 
     inputValue.value = '';
     originalPrice.value = '';
-discountPercent.value = '';
-inputValue.parentElement.style.display = 'flex';
+    discountPercent.value = '';
+
+    inputValue.parentElement.style.display = 'flex';
 
     convertResult.innerText = 'Result:';
 
     document.getElementById('ageSection').style.display = 'none';
-document.getElementById('inputContainer').style.display = 'flex';
+    document.getElementById('inputContainer').style.display = 'flex';
 
-discountSection.style.display = 'none';
+    discountSection.style.display = 'none';
 
-fromUnit.parentElement.style.display = 'flex';
-toUnit.parentElement.style.display = 'flex';
-document.querySelector('.arrow-center').style.display = 'flex';
+    fromUnit.parentElement.style.display = 'flex';
+    toUnit.parentElement.style.display = 'flex';
 
-    // AGE
+    document.querySelector('.arrow-center').style.display = 'flex';
 
     if (type === 'age') {
 
         converterTitle.innerText = 'Age Calculator';
 
         document.getElementById('inputContainer').style.display = 'none';
+
         document.getElementById('ageSection').style.display = 'flex';
 
         populateAgeDropdowns();
@@ -332,54 +351,55 @@ document.querySelector('.arrow-center').style.display = 'flex';
             return;
 
         case 'length':
-            options = ['Meter', 'Kilometer', 'Centimeter', 'Millimeter', 'Inch', 'Foot'];
+            options = ['Millimeter', 'Centimeter', 'Meter', 'Kilometer', 'Inch', 'Foot', 'Yard', 'Mile'];
             break;
 
         case 'mass':
-            options = ['Gram', 'Kilogram', 'Pound', 'Ounce'];
+            options = ['Milligram', 'Gram', 'Kilogram', 'Ton', 'Ounce', 'Pound'];
             break;
 
         case 'area':
-            options = ['Square Meter', 'Square Kilometer', 'Acre'];
+            options = ['Square Meter', 'Square Kilometer', 'Square Foot', 'Square Yard', 'Acre', 'Hectare'];
+            break;
+
+        case 'time':
+            options = ['Millisecond', 'Second', 'Minute', 'Hour', 'Day', 'Week', 'Month', 'Year'];
+            break;
+
+        case 'data':
+            options = ['Bit', 'Byte', 'Kilobyte', 'Megabyte', 'Gigabyte', 'Terabyte'];
             break;
 
         case 'volume':
-            options = ['Liter', 'Milliliter', 'Gallon'];
+            options = ['Milliliter', 'Liter', 'Cubic Meter', 'Cup', 'Pint', 'Gallon'];
+            break;
+
+        case 'numeral':
+            options = ['Binary', 'Octal', 'Decimal', 'Hexadecimal'];
+            break;
+
+        case 'speed':
+            options = ['Meters per second', 'Kilometers per hour', 'Miles per hour', 'Knots'];
             break;
 
         case 'temperature':
             options = ['Celsius', 'Fahrenheit', 'Kelvin'];
             break;
 
-        case 'speed':
-            options = ['Km/h', 'Mph', 'm/s'];
-            break;
-
-        case 'time':
-            options = ['Seconds', 'Minutes', 'Hours', 'Days'];
-            break;
-
-        case 'data':
-            options = ['Byte', 'KB', 'MB', 'GB'];
-            break;
-
-        case 'numeral':
-            options = ['Decimal', 'Binary'];
-            break;
-
         case 'discount':
 
-    converterTitle.innerText = 'Discount Calculator';
+            converterTitle.innerText = 'Discount Calculator';
 
-    discountSection.style.display = 'flex';
+            discountSection.style.display = 'flex';
 
-    inputValue.parentElement.style.display = 'none';
+            inputValue.parentElement.style.display = 'none';
 
-    fromUnit.parentElement.style.display = 'none';
-    toUnit.parentElement.style.display = 'none';
-    document.querySelector('.arrow-center').style.display = 'none';
+            fromUnit.parentElement.style.display = 'none';
+            toUnit.parentElement.style.display = 'none';
 
-    return;
+            document.querySelector('.arrow-center').style.display = 'none';
+
+            return;
     }
 
     options.forEach(option => {
@@ -402,37 +422,21 @@ document.querySelector('.arrow-center').style.display = 'flex';
 
 function convertNow() {
 
-    // AGE
-
     if (currentConverter === 'age') {
 
-        const birthDate =
-            getSelectedDate(birthYear, birthMonth, birthDay);
+        const birthDate = getSelectedDate(birthYear, birthMonth, birthDay);
+        const toDate = getSelectedDate(toYear, toMonth, toDay);
 
-        const toDate =
-            getSelectedDate(toYear, toMonth, toDay);
-
-        let age =
-            toDate.getFullYear() -
-            birthDate.getFullYear();
-
-        let months =
-            toDate.getMonth() -
-            birthDate.getMonth();
-
-        let days =
-            toDate.getDate() -
-            birthDate.getDate();
+        let age = toDate.getFullYear() - birthDate.getFullYear();
+        let months = toDate.getMonth() - birthDate.getMonth();
+        let days = toDate.getDate() - birthDate.getDate();
 
         if (days < 0) {
-
             months--;
-
             days += 30;
         }
 
         if (months < 0) {
-
             age--;
             months += 12;
         }
@@ -443,54 +447,42 @@ function convertNow() {
         return;
     }
 
-    // DISCOUNT
+    if (currentConverter === 'discount') {
 
-if (currentConverter === 'discount') {
+        const original = parseFloat(originalPrice.value);
+        const discount = parseFloat(discountPercent.value);
 
-    const original = parseFloat(originalPrice.value);
-    const discount = parseFloat(discountPercent.value);
+        if (isNaN(original) || isNaN(discount)) {
+            convertResult.innerText = 'Enter valid values';
+            return;
+        }
 
-    if (isNaN(original) || isNaN(discount)) {
+        const savedAmount = (original * discount) / 100;
+        const finalPrice = original - savedAmount;
 
-        convertResult.innerText = 'Enter valid values';
+        convertResult.innerHTML =
+            `Final Price: ₹${finalPrice.toFixed(2)}
+            <br>
+            <span style="font-size:16px;color:#ffffff;">
+            You Save ₹${savedAmount.toFixed(2)}
+            </span>`;
+
         return;
     }
-
-    const savedAmount = (original * discount) / 100;
-
-    const finalPrice = original - savedAmount;
-
-    convertResult.innerHTML =
-        `
-        Final Price: ₹${finalPrice.toFixed(2)}
-        <br>
-        <span style="font-size:16px;color:#ffffff;">
-            You Save ₹${savedAmount.toFixed(2)}
-        </span>
-        `;
-
-    return;
-}
 
     const value = parseFloat(inputValue.value);
 
     if (isNaN(value)) {
-
         convertResult.innerText = 'Enter valid number';
         return;
     }
 
     let resultValue = 0;
 
-    // CURRENCY
-
     if (currentConverter === 'currency') {
 
-        const fromRate =
-            WORLD_CURRENCIES[fromUnit.value].rate;
-
-        const toRate =
-            WORLD_CURRENCIES[toUnit.value].rate;
+        const fromRate = WORLD_CURRENCIES[fromUnit.value].rate;
+        const toRate = WORLD_CURRENCIES[toUnit.value].rate;
 
         resultValue = (value / fromRate) * toRate;
 
@@ -500,182 +492,166 @@ if (currentConverter === 'discount') {
         return;
     }
 
-    // LENGTH
-
     if (currentConverter === 'length') {
 
         const factors = {
+            Millimeter: 0.001,
+            Centimeter: 0.01,
             Meter: 1,
             Kilometer: 1000,
-            Centimeter: 0.01,
-            Millimeter: 0.001,
             Inch: 0.0254,
-            Foot: 0.3048
+            Foot: 0.3048,
+            Yard: 0.9144,
+            Mile: 1609.34
         };
 
-        resultValue =
-            value *
-            factors[fromUnit.value] /
-            factors[toUnit.value];
+        resultValue = value * factors[fromUnit.value] / factors[toUnit.value];
     }
-
-    // MASS
 
     if (currentConverter === 'mass') {
 
         const factors = {
+            Milligram: 0.001,
             Gram: 1,
             Kilogram: 1000,
-            Pound: 453.592,
-            Ounce: 28.3495
+            Ton: 1000000,
+            Ounce: 28.3495,
+            Pound: 453.592
         };
 
-        resultValue =
-            value *
-            factors[fromUnit.value] /
-            factors[toUnit.value];
+        resultValue = value * factors[fromUnit.value] / factors[toUnit.value];
     }
-
-    // AREA
 
     if (currentConverter === 'area') {
 
         const factors = {
             'Square Meter': 1,
             'Square Kilometer': 1000000,
-            Acre: 4046.86
+            'Square Foot': 0.092903,
+            'Square Yard': 0.836127,
+            Acre: 4046.86,
+            Hectare: 10000
         };
 
-        resultValue =
-            value *
-            factors[fromUnit.value] /
-            factors[toUnit.value];
+        resultValue = value * factors[fromUnit.value] / factors[toUnit.value];
     }
-
-    // VOLUME
 
     if (currentConverter === 'volume') {
 
         const factors = {
-            Liter: 1,
             Milliliter: 0.001,
+            Liter: 1,
+            'Cubic Meter': 1000,
+            Cup: 0.236588,
+            Pint: 0.473176,
             Gallon: 3.78541
         };
 
-        resultValue =
-            value *
-            factors[fromUnit.value] /
-            factors[toUnit.value];
+        resultValue = value * factors[fromUnit.value] / factors[toUnit.value];
     }
-
-    // TEMPERATURE
 
     if (currentConverter === 'temperature') {
 
-        if (fromUnit.value === 'Celsius' &&
-            toUnit.value === 'Fahrenheit') {
-
+        if (fromUnit.value === 'Celsius' && toUnit.value === 'Fahrenheit') {
             resultValue = (value * 9 / 5) + 32;
         }
 
-        else if (fromUnit.value === 'Fahrenheit' &&
-            toUnit.value === 'Celsius') {
-
+        else if (fromUnit.value === 'Fahrenheit' && toUnit.value === 'Celsius') {
             resultValue = (value - 32) * 5 / 9;
         }
 
-        else if (fromUnit.value === 'Celsius' &&
-            toUnit.value === 'Kelvin') {
-
+        else if (fromUnit.value === 'Celsius' && toUnit.value === 'Kelvin') {
             resultValue = value + 273.15;
         }
 
-        else if (fromUnit.value === 'Kelvin' &&
-            toUnit.value === 'Celsius') {
-
+        else if (fromUnit.value === 'Kelvin' && toUnit.value === 'Celsius') {
             resultValue = value - 273.15;
         }
 
         else {
-
             resultValue = value;
         }
     }
-
-    // SPEED
 
     if (currentConverter === 'speed') {
 
         const factors = {
-            'Km/h': 1,
-            'Mph': 1.60934,
-            'm/s': 3.6
+            'Meters per second': 1,
+            'Kilometers per hour': 0.277778,
+            'Miles per hour': 0.44704,
+            Knots: 0.514444
         };
 
-        resultValue =
-            value *
-            factors[fromUnit.value] /
-            factors[toUnit.value];
+        resultValue = value * factors[fromUnit.value] / factors[toUnit.value];
     }
-
-    // TIME
 
     if (currentConverter === 'time') {
 
         const factors = {
-            Seconds: 1,
-            Minutes: 60,
-            Hours: 3600,
-            Days: 86400
+            Millisecond: 0.001,
+            Second: 1,
+            Minute: 60,
+            Hour: 3600,
+            Day: 86400,
+            Week: 604800,
+            Month: 2628000,
+            Year: 31536000
         };
 
-        resultValue =
-            value *
-            factors[fromUnit.value] /
-            factors[toUnit.value];
+        resultValue = value * factors[fromUnit.value] / factors[toUnit.value];
     }
-
-    // DATA
 
     if (currentConverter === 'data') {
 
         const factors = {
+            Bit: 0.125,
             Byte: 1,
-            KB: 1024,
-            MB: 1048576,
-            GB: 1073741824
+            Kilobyte: 1024,
+            Megabyte: 1048576,
+            Gigabyte: 1073741824,
+            Terabyte: 1099511627776
         };
 
-        resultValue =
-            value *
-            factors[fromUnit.value] /
-            factors[toUnit.value];
+        resultValue = value * factors[fromUnit.value] / factors[toUnit.value];
     }
-
-    // NUMERAL
 
     if (currentConverter === 'numeral') {
 
-        if (fromUnit.value === 'Decimal' &&
-            toUnit.value === 'Binary') {
+        let decimalValue;
 
-            resultValue = parseInt(value).toString(2);
+        if (fromUnit.value === 'Binary') {
+            decimalValue = parseInt(value, 2);
         }
 
-        else if (fromUnit.value === 'Binary' &&
-            toUnit.value === 'Decimal') {
-
-            resultValue = parseInt(value, 2);
+        else if (fromUnit.value === 'Octal') {
+            decimalValue = parseInt(value, 8);
         }
 
-        else {
-
-            resultValue = value;
+        else if (fromUnit.value === 'Decimal') {
+            decimalValue = parseInt(value, 10);
         }
 
-        convertResult.innerText =
-            `Result: ${resultValue}`;
+        else if (fromUnit.value === 'Hexadecimal') {
+            decimalValue = parseInt(value, 16);
+        }
 
+        if (toUnit.value === 'Binary') {
+            resultValue = decimalValue.toString(2);
+        }
+
+        else if (toUnit.value === 'Octal') {
+            resultValue = decimalValue.toString(8);
+        }
+
+        else if (toUnit.value === 'Decimal') {
+            resultValue = decimalValue.toString(10);
+        }
+
+        else if (toUnit.value === 'Hexadecimal') {
+            resultValue = decimalValue.toString(16).toUpperCase();
+        }
+
+        convertResult.innerText = `Result: ${resultValue}`;
         return;
     }
 
