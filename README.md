@@ -74,4 +74,3 @@ git clone https://github.com/Nehanshi06/calcify.git
 <p align="center">
   Made with ❤️ using HTML, CSS & JavaScript
 </p>
-```0
