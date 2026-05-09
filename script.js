@@ -17,6 +17,10 @@ const discountSection = document.getElementById('discountSection');
 
 const originalPrice = document.getElementById('originalPrice');
 const discountPercent = document.getElementById('discountPercent');
+const gstSection = document.getElementById('gstSection');
+const gstOriginalPrice = document.getElementById('gstOriginalPrice');
+
+let selectedGST = 0;
 
 const birthYear = document.getElementById('birthYear');
 const birthMonth = document.getElementById('birthMonth');
@@ -39,6 +43,13 @@ inputValue?.addEventListener('input', () => {
     inputValue.value = inputValue.value
         .replace(/[^0-9.]/g, '')
         .replace(/(\..*?)\..*/g, '$1');
+
+    gstOriginalPrice?.addEventListener('input', () => {
+
+    gstOriginalPrice.value = gstOriginalPrice.value
+        .replace(/[^0-9.]/g, '')
+        .replace(/(\..*?)\..*/g, '$1');
+});
 });
 
 
@@ -306,6 +317,7 @@ function openSpecificConverter(type) {
     document.getElementById('inputContainer').style.display = 'flex';
 
     discountSection.style.display = 'none';
+    gstSection.style.display = 'none';
 
     fromUnit.parentElement.style.display = 'flex';
     toUnit.parentElement.style.display = 'flex';
@@ -400,6 +412,23 @@ function openSpecificConverter(type) {
             document.querySelector('.arrow-center').style.display = 'none';
 
             return;
+
+        case 'gst':
+
+    converterTitle.innerText = 'GST Calculator';
+
+    gstSection.style.display = 'flex';
+
+    inputValue.parentElement.style.display = 'none';
+
+    fromUnit.parentElement.style.display = 'none';
+    toUnit.parentElement.style.display = 'none';
+
+    document.querySelector('.arrow-center').style.display = 'none';
+
+    convertResult.innerText = 'Final Price:';
+
+    return;
     }
 
     options.forEach(option => {
@@ -415,6 +444,20 @@ function openSpecificConverter(type) {
     }
 }
 
+// ==========================
+// GST SELECT
+// ==========================
+
+function selectGST(value) {
+
+    selectedGST = value;
+
+    document.querySelectorAll('.gst-btn').forEach(btn => {
+        btn.classList.remove('active-gst');
+    });
+
+    event.target.classList.add('active-gst');
+}
 
 // ==========================
 // CONVERTER
@@ -469,6 +512,38 @@ function convertNow() {
 
         return;
     }
+
+    if (currentConverter === 'gst') {
+
+    const original = parseFloat(gstOriginalPrice.value);
+
+    if (isNaN(original)) {
+
+        convertResult.innerText = 'Enter valid price';
+        return;
+    }
+
+    if (selectedGST === 0) {
+
+        convertResult.innerText = 'Select GST %';
+        return;
+    }
+
+    const gstAmount =
+        (original * selectedGST) / 100;
+
+    const finalPrice =
+        original + gstAmount;
+
+    convertResult.innerHTML =
+        `Final Price: ₹${finalPrice.toFixed(2)}
+        <br>
+        <span style="font-size:16px;color:#ffffff;">
+        GST Added ₹${gstAmount.toFixed(2)}
+        </span>`;
+
+    return;
+}
 
     const value = parseFloat(inputValue.value);
 

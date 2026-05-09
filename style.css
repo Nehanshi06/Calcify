@@ -546,3 +546,49 @@ body{
         font-size:26px;
     }
 }
+
+/* GST SECTION */
+
+#gstSection{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+#gstSection input{
+    width:100%;
+    min-height:58px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+    background:#0f1835;
+    color:white;
+    padding:12px 16px;
+    font-size:15px;
+}
+
+.gst-buttons{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+}
+
+.gst-btn{
+    height:50px;
+    border:none;
+    border-radius:14px;
+    background:#0f1835;
+    color:white;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+.gst-btn:hover{
+    background:linear-gradient(135deg,#00eaff,#006eff);
+}
+
+.gst-btn.active-gst{
+    background:linear-gradient(135deg,#00eaff,#006eff);
+}
